@@ -1,0 +1,36 @@
+name: mqttsnowstreaming
+services:
+  mqtt-broker:
+    image: eclipse-mosquitto:2
+    platform: "linux/amd64"
+    container_name: mqtt-broker
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mqtt/conf:/mosquitto/config
+      - ./mqtt/data:/mosquitto/data
+      - ./mqtt/log:/mosquitto/log
+
+  mqtt-publisher:
+    build:
+      context: .
+      dockerfile: publisher/Dockerfile-publisher
+    container_name: mqtt-publisher
+    platform: "linux/amd64"
+    depends_on:
+      - mqtt-broker
+    volumes:
+      - ./shared:/shared
+
+  mqtt-subscriber:
+    volumes:
+      - ./subscriber/streaming-data-ingestion:/streaming-data-ingestion/local/    
+    build:
+      context: .
+      dockerfile: subscriber/Dockerfile-subscriber
+    platform: "linux/amd64"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mqtt-broker
+      - mqtt-publisher

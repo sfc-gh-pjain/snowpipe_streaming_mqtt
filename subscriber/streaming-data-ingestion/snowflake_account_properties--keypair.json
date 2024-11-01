@@ -1,0 +1,10 @@
+{
+    "user": "username",
+    "url": "https://<account locator_org_region>.snowflakecomputing.com:443", 
+    "private_key": "<Your Private key>",
+    "port": 443,
+    "host": "<account locator_org_region>.snowflakecomputing.com",
+    "scheme": "https",
+    "role": "sysadmin"
+}
+

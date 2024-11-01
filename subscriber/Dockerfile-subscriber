@@ -1,0 +1,31 @@
+FROM maven:3.3-jdk-8
+#AS build
+WORKDIR /usr/streaming-data-ingestion
+COPY subscriber/streaming-data-ingestion/src ./src
+COPY subscriber/streaming-data-ingestion/snowflake_account_properties.json .
+COPY subscriber/streaming-data-ingestion/pom.xml .
+RUN mvn clean package
+
+WORKDIR /app
+COPY subscriber/streaming-data-ingestion/snowflake_account_properties.json .
+RUN cp /usr/streaming-data-ingestion/target/streaming-data-ingestion-1.0.jar /app
+#COPY subscriber/start_subscriber.sh .
+#RUN chmod +x start_subscriber.sh
+#CMD ["java -cp /app/streaming-data-ingestion-1.0.jar com.streaming.App"]
+
+ENV max_rows=5000
+ENV flush_tm=5
+
+COPY subscriber/start_subscriber.sh /app/
+RUN chmod +x /app/start_subscriber.sh
+#CMD ["/app/start_subscriber.sh"]
+
+#FROM openjdk:8-jdk-alpine
+#WORKDIR /streaming-data-ingestion
+#COPY --from=build /usr/streaming-data-ingestion/target/streaming-data-ingestion-1.0.jar ./streaming-data-ingestion-1.0.jar
+#COPY --from=build /usr/streaming-data-ingestion/snowflake_account_properties.json ./snowflake_account_properties.json
+#COPY streaming-data-ingestion/start.sh .
+
+#EXPOSE 8080
+CMD ["/bin/sh", "start_subscriber.sh"]
+#java -cp /streaming-data-ingestion/streaming-data-ingestion-1.0.jar com.streaming.App 100000 2

@@ -1,0 +1,14 @@
+{
+    "user": "username",
+    "url": "<account locator_org_region>.snowflakecomputing.com:443", 
+    "port": 443,
+    "host": "<account locator_org_region>.snowflakecomputing.com",
+    "scheme": "https",
+    "role": "sysadmin",
+    "authorization_type": "OAuth",
+	"oauth_client_id": "clientid",
+	"oauth_client_secret": "clientsecret",
+	"oauth_refresh_token": "refresh_token",
+	"oauth_token_endpoint": "refresh token url"
+
+}
