@@ -1,8 +1,10 @@
+# Steps to run this MQTT streaming demo
+
 ### You should have Docker container services installed for this demo to work. The steps for installing ans working
  with Docker are beyond the scope of this demo, but are very easy for both windows and Macbook and can easily
  found on the internet.
 
-# Steps to Run this demo.
+## Steps to Run this demo.
 
 1. Go to your Snowflake account, open a worksheet and paste this SQL.
 
@@ -21,7 +23,9 @@ create or replace TABLE SNOWPIPE_STREAMING.PUBLIC.STREAMING_MQTT_TO_SNOW (
 ```
 
 2. Go to the parent folder and open the properties file for connecting to Snowflake
-mqtt-ss-sdk/subscriber/streaming-data-ingestion/snowflake_account_properties.json.example
+```
+<root folder>/subscriber/streaming-data-ingestion/snowflake_account_properties.json.example
+```
 
 update your credentials and account details, save this file in the same folder as 
 ```
@@ -31,7 +35,9 @@ update your credentials and account details, save this file in the same folder a
 for more information on the PEM key look at https://docs.snowflake.com/en/user-guide/key-pair-auth#configuring-key-pair-authentication
 
 3. open a terminal and type this command 
+    ```
     docker compose up
+    ```
 
 4. It will take a while for the first time and will start the containers required for the Snowpipe Streaming demo.
 
